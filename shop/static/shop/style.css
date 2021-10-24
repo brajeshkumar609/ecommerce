@@ -1,0 +1,11 @@
+body{
+background-color:skyblue;
+}
+.card-text{
+   color:red;
+   font-weight:800;
+}
+.card-title{
+   color:amicable;
+   font-weight:1000;
+}
