@@ -65,7 +65,7 @@
             <div class="card">
                 <img src="{{i.image}}" class="card-img-top">
                 <div class="card-body">
-                    <div class="card-title">
+                    <div id="nm{{i.id}}" class="card-title">
                         {{i.title}}
                     </div>
                     <div class="card-text">
@@ -129,12 +129,26 @@
         document.getElementById('cart').innerHTML = "cart(" + Object.keys(cart).length + ")";
 
     });
-     https://getbootstrap.com/docs/5.0/components/popovers/#example-enable-popovers-everywhere
-    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-    document.getElementById('cart_function').setAttribute('data-bs-content','ftdrdrd')
-    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-      return new bootstrap.Popover(popoverTriggerEl)
+   var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+   var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+   document.getElementById('cart').setAttribute('data-bs-content','ftdrdrd');
+   return new bootstrap.Popover(popoverTriggerEl)
+})
     })
+
+    /*displayCart(cart);
+    function displayCart(cart) {
+
+        var cartString = "";
+        cartString +=  "<h5>This is your cart</h5>";
+
+        var cartIndex = 1;
+        for (var x in cart){
+            cartString += cartIndex;
+            cartString += document.getElementById("nm" + x).innerHTML +" | " + "Qty:" + cart[x][0] + "</br>" ;
+            cartIndex +=1;
+     };*/
+
 </script>
 </html>
 
