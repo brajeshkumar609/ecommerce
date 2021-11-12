@@ -2,10 +2,19 @@ body{
 background-image:url('https://upload.wikimedia.org/wikipedia/commons/2/26/NGC_2467_Nebula.jpg');
 }
 .card-text{
-   color:red;
+   color:green;
    font-weight:800;
 }
 .card-title{
-   color:amicable;
+   color:red;
    font-weight:1000;
 }
+.card-img-top{
+width:100%;
+height:300px;
+margin-top:10px;
+}
+.pageno{
+margin-top:15px;
+}
+

@@ -1,7 +1,10 @@
+{%block content%}
 {%load static%}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Chudiwala</title>
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script> -->
@@ -19,24 +22,28 @@
         <div class="col-md-12">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-      <a class="navbar-brand" href="#"><i> Chudiwala</i></a>
+      <a class="navbar-brand" href="home"><i><strong> Chudiwala</strong></i></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" href="home"><b>Home</b></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
+            <a class="nav-link active" href="ring"><b>Ring</b></a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link active" href="ring"><b>Necklace</b></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="ring"><b>Bangles</b></a>
         </li>
         <button id="cart"  data-html='true' type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="hii">
-  Cart
-</button>
-        <li class="nav-item">
-          <a class="nav-link disabled"><b>Help</b></a>
-        </li>
+        Cart
+        </button>
       </ul>
     </div>
   </div>
@@ -59,11 +66,12 @@
             </form>
         </div>
     </div>
+    {%endblock%}
     <div class="row">
         {%for i in product %}
         <div class="col-md-3">
             <div class="card">
-                <img src="{{i.image}}" class="card-img-top">
+                <img src="{{i.image}}" alt="BAngles" class="card-img-top">
                 <div class="card-body">
                     <div id="nm{{i.id}}" class="card-title">
                         {{i.title}}
@@ -79,7 +87,7 @@
         {%endfor%}
 
     </div>
-    <div class="row">
+    <div id='pageno' class="row">
         <div class="col-md-3 offset-md-4">
             <ul class="pagination">
                 {% if product.has_previous %}
@@ -103,6 +111,7 @@
 
 </div>
 </body>
+
 <script type="text/javascript">
     console.log('hii');
     if(localStorage.getItem('cart')==null){
@@ -129,16 +138,14 @@
         document.getElementById('cart').innerHTML = "cart(" + Object.keys(cart).length + ")";
 
     });
-   var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-   var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-   document.getElementById('cart').setAttribute('data-bs-content','ftdrdrd');
-   return new bootstrap.Popover(popoverTriggerEl)
+  var myPopoverTrigger = document.getElementById('cart')
+myPopoverTrigger.addEventListener('show.bs.popover', function () {
+  return
 })
-    })
 
     /*displayCart(cart);
     function displayCart(cart) {
-
+document.getElementById('cart').setAttribute('data-bs-content','ftdrdrd');
         var cartString = "";
         cartString +=  "<h5>This is your cart</h5>";
 

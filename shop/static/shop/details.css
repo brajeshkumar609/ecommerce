@@ -1,0 +1,4 @@
+body{
+background-image:url("{{product1.image}}");
+text-align: -webkit-center;
+}
