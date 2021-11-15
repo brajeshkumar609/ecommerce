@@ -21,3 +21,19 @@ def home(request):
 def rings(request):
     rings=ring.objects.all()
     return render(request, 'ring.html',{'ring':rings})
+def checkout(request):
+
+    if request.method == 'POST':
+
+        items =request.POST.get('items',"") #allow the null value thats why put the empty string ""
+        name = request.POST.get('name',"")
+        email = request.POST.get('email',"")
+        address = request.POST.get('address',"")
+        city = request.POST.get('city',"")
+        state = request.POST.get('state',"")
+        zipcode = request.POST.get('zipcode',"")
+        total = request.POST.get('total','')
+        order_list = order( items = items,name = name, email = email, address = address, city = city, state = state, zipcode = zipcode,total = total)
+        order_list.save()
+
+    return render(request,'shop/checkout.html')

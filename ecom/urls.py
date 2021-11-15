@@ -16,11 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from shop import views
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.index, name='index'),
     path('<int:id>/', views.details, name='details'),
     path('ring/', views.rings, name='ring'),
-    path('home/', views.home, name='home')
+    path('home/', views.home, name='home'),
+    path("about/", TemplateView.as_view(template_name="shop/about.html"), name="about"),
+
 ]

@@ -17,29 +17,30 @@
 
     <link rel="stylesheet" href="{% static 'shop/style.css' %}">
 <body>
+
 <div class="container">
     <div class="row">
         <div class="col-md-12">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-      <a class="navbar-brand" href="home"><i><strong> Chudiwala</strong></i></a>
+      <a class="navbar-brand" href="{% url 'index' %}"><i><strong> Chudiwala</strong></i></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="home"><b>Home</b></a>
+            <a class="nav-link active" aria-current="page" href="{% url 'index' %}"><b>Home</b></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="ring"><b>Ring</b></a>
+            <a class="nav-link active" href="{% url 'ring' %}"><b>Ring</b></a>
         </li>
         
         <li class="nav-item">
-          <a class="nav-link active" href="ring"><b>Necklace</b></a>
+          <a class="nav-link active" href="{% url 'ring' %}"><b>Necklace</b></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="ring"><b>Bangles</b></a>
+            <a class="nav-link active" href="{% url 'ring' %}"><b>Bangles</b></a>
         </li>
         <button id="cart"  data-html='true' type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="hii">
         Cart
@@ -52,39 +53,49 @@
 
     </div>
     <div class="row">
-        <div class="col-md-12">
-            <form class="card card-sm">
-            <div class="card-body row no-gutters align-items-center">
-                <div class="col">
-                    <input type="search" name="item_name" placeholder="Search for product" class="form-control form-conrol-borderless">
-
-                </div>
-                <div class="col-auto">
-                    <button class="btn  btn-success" type="submit">Search</button>
-                </div>
+            <div class="col-md-12">
+                <form class="card card-sm">
+                    <div class="card-body row no-gytters align-item-center">
+                        <div class="col">
+                            <input  name="item_name" placeholder="search for products" class="form-control">
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-sucess" type="submit">Search</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            </form>
         </div>
-    </div>
     {%endblock%}
     <div class="row">
-        {%for i in product %}
-        <div class="col-md-3">
-            <div class="card">
-                <img src="{{i.image}}" alt="BAngles" class="card-img-top">
-                <div class="card-body">
-                    <div id="nm{{i.id}}" class="card-title">
-                        {{i.title}}
+            {% for product in product%}
+            <div class="col-md-3" >
+                <div class="card bg-light" >
+                    <img src="{{ product.image }}" style="height:300px; width:300px;  margin-left: auto;
+                    margin-right: auto;">
+                    <div class="card-body">
+                        <h3 id="nm{{ product.id }}" class="card-title_">{{ product.title }}</h3>
+                        <h5 class="card-title">{{ product.category }}</h5>
+                        <!-- <p class="card-text"> {{ product.description }}</p> -->
+                        <textarea name="" id="" cols="35" rows="2"><b>{{ product.desc }}</b></textarea>
+                        <h5 style="color:green;" id="price{{ product.id }}">{{ product.price }}</h5>
+                        <h5>Discount <span style="color:red;" >{{product.discount}}$</span></h5>
+
+                        <!-- view and add to card -->
+                        <div class="row" style=" margin: auto;">
+                            <div class="col-md-3">
+                                <a href="{{product.id}}" class="btn btn-warning" style="background-color: green;">View</a>
+                            </div>
+                            <div class="col-md-9">
+                                <button id="{{ product.id }}" class="btn atc btn-warning">Add to Cart</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-text">
-                        Rs.{{i.price}}
-                    </div>
-                    <a href="/{{i.id}}" class="btn btn-warning">View</a>
-                    <button id={{i.id}} class="btn atc btn-warning">Add to Cart</button>
+
                 </div>
+                <br>
             </div>
-        </div>
-        {%endfor%}
+            {% endfor %}
 
     </div>
     <div id='pageno' class="row">
@@ -127,25 +138,30 @@
         console.log(item_id);
 
         if(cart[item_id]!=undefined){
-             cart[item_id]=cart[item_id]+1;
+            quantity = cart[item_id][0] + 1;
+            cart[item_id][0] = quantity;
+            cart[item_id][2] = cart[item_id][2] + parseFloat(document.getElementById('price'+item_id).innerHTML);
         }
         else{
-            cart[item_id]=1;
-
+            quantity = 1;
+            price = parseFloat(document.getElementById('price'+item_id).innerHTML);
+            name = document.getElementById('nm' + item_id).innerHTML;
+            cart[item_id] = [quantity,name,price];
         }
         console.log(cart);
         localStorage.setItem('cart', JSON.stringify(cart));
         document.getElementById('cart').innerHTML = "cart(" + Object.keys(cart).length + ")";
 
     });
-  var myPopoverTrigger = document.getElementById('cart')
+  /*var myPopoverTrigger = document.getElementById('cart')
 myPopoverTrigger.addEventListener('show.bs.popover', function () {
   return
-})
+})*/
 
-    /*displayCart(cart);
-    function displayCart(cart) {
-document.getElementById('cart').setAttribute('data-bs-content','ftdrdrd');
+   //display cart function
+    displayCart(cart);
+    function displayCart(cart) {    //cart is perameter actually
+
         var cartString = "";
         cartString +=  "<h5>This is your cart</h5>";
 
@@ -154,7 +170,20 @@ document.getElementById('cart').setAttribute('data-bs-content','ftdrdrd');
             cartString += cartIndex;
             cartString += document.getElementById("nm" + x).innerHTML +" | " + "Qty:" + cart[x][0] + "</br>" ;
             cartIndex +=1;
-     };*/
+
+        }
+        //checkout
+       //cartString += "<a href='#'><button class='btn btn-warning' id='checkout'>check</button></a>";
+         cartString += "<br><a class='btn btn-warning' id='checkout' href='/checkout'>checkout</a>";
+
+        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+        document.getElementById("cart_function").setAttribute("data-bs-content",cartString);
+        var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+            return new bootstrap.Popover(popoverTriggerEl)
+          });
+
+
+    }
 
 </script>
 </html>

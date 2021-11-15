@@ -1,4 +1,13 @@
-body{
+#body{
 background-image:url("{{product1.image}}");
 text-align: -webkit-center;
+}
+#image_detail{
+    height: 50%;
+    width: 50%;
+    align-items:center;
+}
+
+#full_row{
+    border: 15px solid green;
 }

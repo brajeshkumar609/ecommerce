@@ -1,1 +1,44 @@
 {% extends 'index.html'%}
+<div class="row">
+        {%for i in ring %}
+        <div class="col-md-3">
+            <div class="card">
+                <img src="{{i.image}}" alt="BAngles" class="card-img-top">
+                <div class="card-body">
+                    <div id="nm{{i.id}}" class="card-title">
+                        {{i.title}}
+                    </div>
+                    <div class="card-text">
+                        Rs.{{i.price}}
+                    </div>
+                    <a href="/{{i.id}}" class="btn btn-warning">View</a>
+                    <button id={{i.id}} class="btn atc btn-warning">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+        {%endfor%}
+
+    </div>
+    <div id='pageno' class="row">
+        <div class="col-md-3 offset-md-4">
+            <ul class="pagination">
+                {% if ring.has_previous %}
+                     <li class="page-item">
+                         <a class="page-link" href="?page={{ring.previous_page_number}}">Previous</a>
+                     </li>
+                {% endif %}
+                <li class="page-item active">
+                         <a class="page-link"  href="?page={{ring.number}}">current</a>
+
+                </li>
+                {% if ring.has_next %}
+                     <li class="page-item">
+                         <a class="page-link"  href="?page={{ring.next_page_number}}">Next</a>
+                     </li>
+                {% endif %}
+
+            </ul>
+        </div>
+    </div>
+
+</div>
